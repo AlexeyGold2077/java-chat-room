@@ -7,6 +7,9 @@ jar -cfm src/Server/ServerApp.jar src/Server/MANIFEST.mf src/Server/Server.class
 jar -cfm src/Client/ClientApp.jar src/Client/MANIFEST.mf src/Client/Client.class
 
 echo "moving..."
+rm -rf jars
+rm -rf jars
+mkdir -p jars
 cp src/Server/ServerApp.jar ./jars
 cp src/Client/ClientApp.jar ./jars
 
