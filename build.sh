@@ -1,17 +1,18 @@
 echo "compiling..."
-javac --release 17 src/Server/Server.java src/Server/ClientHandler.java
-javac --release 17 src/Client/Client.java
+javac --release 17 src/Server.java src/ClientHandler.java
+javac --release 17 src/Client.java
 
 echo "archiving..."
-jar -cfm src/Server/ServerApp.jar src/Server/MANIFEST.mf src/Server/Server.class src/Server/ClientHandler.class
-jar -cfm src/Client/ClientApp.jar src/Client/MANIFEST.mf src/Client/Client.class
+jar -cfm src/ServerApp.jar src/MANIFEST_Server.mf src/Server.class src/ClientHandler.class
+jar -cfm src/ClientApp.jar src/MANIFEST_Client.mf src/Client.class
 
 echo "moving..."
 rm -rf jars
-rm -rf jars
 mkdir -p jars
-cp src/Server/ServerApp.jar ./jars
-cp src/Client/ClientApp.jar ./jars
+mv src/ServerApp.jar ./jars
+mv src/ClientApp.jar ./jars
+
+echo "cleaning..."
+rm -rf src/*.class rm src/*.jar
 
 echo "done!"
-
