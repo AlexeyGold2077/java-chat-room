@@ -1,31 +1,44 @@
 package src;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.ClientInfoStatus;
 
 public class Server {
-    ServerSocket server;
+    private ServerSocket serverSocket;
 
-    public Server() throws IOException {
-        server = new ServerSocket(4444);
+    public Server(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
     }
 
-    public void run() throws IOException {
-        while (true) {
-             Socket socket = server.accept();
+    public void startServer() {
+        try {
+            while (!serverSocket.isClosed()) {
+                Socket socket = serverSocket.accept();
+                System.out.println("A new client has connected!");
+                ClientHandler clientHandler = new ClientHandler(socket);
+                Thread thread = new Thread(clientHandler);
+                thread.start();
+            }
+        } catch (IOException e) {
 
-             InputStream inputStream = socket.getInputStream();
-             BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-             String message = in.readLine();
-
-             String reverseMessage = new StringBuilder(message).reverse().toString();
-
-             OutputStream outputStream = socket.getOutputStream();
-             PrintWriter out = new PrintWriter(outputStream, true);
-             System.out.println(reverseMessage);
-             out.println(reverseMessage);
-             out.flush();
         }
+    }
+
+    public void closeServerSocket() {
+        try {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String args[]) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(Integer.valueOf(args[0]));
+        Server server = new Server(serverSocket);
+        server.startServer();
     }
 }
