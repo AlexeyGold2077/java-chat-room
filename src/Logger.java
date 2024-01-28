@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger {
 
+    public void logServerStart() {
+        System.out.println("Server start -- " + getDateTime());
+    }
+
     public String getDateTime() {
 		LocalDateTime dateTime = LocalDateTime.now();
         return String.valueOf(dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss d-MM-uuuu")));
