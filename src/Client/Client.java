@@ -76,7 +76,7 @@ public class Client {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        Socket socket = new Socket(args[0], Integer.valueOf(args[1]));
+        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
         Client client = new Client(socket, username);
