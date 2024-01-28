@@ -6,5 +6,9 @@ echo "archiving..."
 jar -cfm src/Server/ServerApp.jar src/Server/MANIFEST.mf src/Server/Server.class src/Server/ClientHandler.class
 jar -cfm src/Client/ClientApp.jar src/Client/MANIFEST.mf src/Client/Client.class
 
+echo "moving..."
+cp src/Server/ServerApp.jar ./jars
+cp src/Client/ClientApp.jar ./jars
+
 echo "done!"
 
