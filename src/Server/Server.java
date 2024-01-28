@@ -3,17 +3,22 @@ package src.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.ClientInfoStatus;
+import java.util.Date;
 
 public class Server {
     private ServerSocket serverSocket;
-
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 
     public void startServer() {
         try {
+            Date date = new Date();
+
+            System.out.println("Server started! " +
+                    date.getHours() + ":" +
+                    date.getMinutes() + ":" +
+                    date.getSeconds());
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected!");
