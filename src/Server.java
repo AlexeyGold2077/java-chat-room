@@ -6,13 +6,17 @@ import java.net.Socket;
 import java.util.Date;
 
 public class Server {
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
+    Logger logger;
+
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
+        logger = new Logger();
     }
 
     public void startServer() {
         try {
+            System.out.println("Server start -- " + logger.getDateTime());
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected!");
@@ -21,7 +25,7 @@ public class Server {
                 thread.start();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -31,12 +35,12 @@ public class Server {
                 serverSocket.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
-    public static void main(String args[]) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(Integer.valueOf(args[0]));
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]));
         Server server = new Server(serverSocket);
         server.startServer();
     }
