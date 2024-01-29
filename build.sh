@@ -7,10 +7,10 @@ jar -cfm src/ServerApp.jar src/MANIFEST_Server.mf src/Server.class src/ClientHan
 jar -cfm src/ClientApp.jar src/MANIFEST_Client.mf src/Client.class
 
 echo "moving..."
-rm -rf jars
-mkdir -p jars
-mv src/ServerApp.jar ./jars
-mv src/ClientApp.jar ./jars
+rm -rf jar
+mkdir -p jar
+mv src/ServerApp.jar ./jar
+mv src/ClientApp.jar ./jar
 
 echo "cleaning..."
 rm -rf src/*.class rm src/*.jar
