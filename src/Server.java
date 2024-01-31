@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Server {
     private final ServerSocket serverSocket;
-    Logger logger;
+    private final Logger logger;
 
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
@@ -39,9 +39,15 @@ public class Server {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]));
-        Server server = new Server(serverSocket);
-        server.startServer();
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]));
+            Server server = new Server(serverSocket);
+            server.startServer();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ERROR: to run requires port number as parameter");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
