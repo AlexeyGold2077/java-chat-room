@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger {
 
-    public void logServerStart() {
-        System.out.println("Server start -- " + getDateTime());
+    public void logAnnouncement(String announcement) {
+        System.out.println(announcement + getDateTime());
     }
 
     public String getDateTime() {

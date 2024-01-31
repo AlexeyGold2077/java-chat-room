@@ -16,10 +16,10 @@ public class Server {
 
     public void startServer() {
         try {
-            logger.logServerStart();
+            logger.logAnnouncement("Server started -- ");
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected!");
+                logger.logAnnouncement("A new client has connected -- ");
                 ClientHandler clientHandler = new ClientHandler(socket);
                 Thread thread = new Thread(clientHandler);
                 thread.start();
@@ -40,9 +40,11 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        ServerSocket serverSocket;
+        Server server;
         try {
-            ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]));
-            Server server = new Server(serverSocket);
+            serverSocket = new ServerSocket(Integer.parseInt(args[0]));
+            server = new Server(serverSocket);
             server.startServer();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ERROR: to run requires port number as parameter");

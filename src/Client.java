@@ -1,6 +1,7 @@
 package src;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -73,14 +74,25 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner scanner;
+        Socket socket;
+        Client client;
 
-        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
-        System.out.print("Enter your username: ");
-        String username = scanner.nextLine();
-        Client client = new Client(socket, username);
-        client.listenForMessage();
-        client.sendMessage();
+        try {
+            socket = new Socket(args[0], Integer.parseInt(args[1]));
+            scanner = new Scanner(System.in);
+            System.out.print("Enter your username: ");
+            String username = scanner.nextLine();
+            client = new Client(socket, username);
+            client.listenForMessage();
+            client.sendMessage();
+        } catch (ConnectException e) {
+            System.out.println("ERROR: server is unreachable");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ERROR: to run requires server is address and port number as parameters");
+        } catch (IOException e) {
+            e.getMessage();
+        }
     }
 }
