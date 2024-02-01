@@ -2,6 +2,7 @@ package src;
 
 import java.io.*;
 import java.net.ConnectException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -80,8 +81,10 @@ public class Client {
         Client client;
 
         try {
-            socket = new Socket(args[0], Integer.parseInt(args[1]));
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(args[0], Integer.parseInt(args[1])), 10000);
             scanner = new Scanner(System.in);
+
             System.out.print("Enter your username: ");
             String username = scanner.nextLine();
             client = new Client(socket, username);
@@ -92,6 +95,7 @@ public class Client {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ERROR: to run requires server is address and port number as parameters");
         } catch (IOException e) {
+            System.out.println("ERROR: error while connecting");
             e.getMessage();
         }
     }
