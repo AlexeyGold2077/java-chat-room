@@ -1,2 +1,2 @@
-# simple-chat-room-java
+# java-chat-room
 ### Simple chat room in Java.
